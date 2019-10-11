@@ -3,14 +3,20 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import Picture from "./Picture";
 import axios from 'axios';
+import styled from "styled-components";
 
 
-const Main = () => {
+const MainWrapper = styled.div`
+background-color: lightblue;
+`
+
+const Main = (props) => {
     const [data, setData] = useState([])
+
 
     useEffect(() => {
         axios
-            .get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
+            .get(`https://api.nasa.gov/planetary/apod?date=${props.date}&api_key=tKxxo9IAPow3HtZay1GSsdRf9B0mvxbR4mGbfMMT`)
             .then(response => {
                 console.log(response.data);
                 setData(response.data)
@@ -21,7 +27,7 @@ const Main = () => {
     }, []);
 
      return(
-         <div>
+         <MainWrapper>
         <Header 
             title={data.title}
             date={data.date}
@@ -31,7 +37,7 @@ const Main = () => {
             explanation={data.explanation}
             media_type={data.media_type}
         />
-        </div>
+        </MainWrapper>
      )
 }
 
